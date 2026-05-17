@@ -1,41 +1,48 @@
 {
-  "updatedAt": "2026-05-17T22:36:40.614Z",
+  "updatedAt": "2026-05-17T23:30:57.187Z",
   "checkoutUrl": "https://pay.hotmart.com/N105747626N",
-  "strategy": "ui",
-  "totalCountries": 12,
+  "strategy": "both",
+  "totalCountries": 13,
   "prices": {
+    "BR": {
+      "currency": "BRL",
+      "amount": 55.57,
+      "formatted": "R$ 55,57",
+      "locale": "pt_BR",
+      "name": "Brasil"
+    },
+    "MX": {
+      "currency": "MXN",
+      "amount": 213.44,
+      "formatted": "$213.44",
+      "locale": "es_MX",
+      "name": "México"
+    },
     "CO": {
       "currency": "COP",
-      "amount": 9.99,
-      "formatted": "$9.99",
+      "amount": 39945,
+      "formatted": "$ 39.945",
       "locale": "es_CO",
       "name": "Colombia"
     },
     "AR": {
       "currency": "ARS",
-      "amount": 9.99,
-      "formatted": "$9.99",
+      "amount": 16237,
+      "formatted": "$ 16.237,00",
       "locale": "es_AR",
       "name": "Argentina"
     },
-    "PE": {
-      "currency": "PEN",
-      "amount": 9.99,
-      "formatted": "$9.99",
-      "locale": "es_PE",
-      "name": "Perú"
-    },
     "ES": {
       "currency": "EUR",
-      "amount": 9.99,
-      "formatted": "$9.99",
+      "amount": 10.4,
+      "formatted": "10,40 €",
       "locale": "es_ES",
       "name": "España"
     },
     "CL": {
       "currency": "CLP",
-      "amount": 9.99,
-      "formatted": "$9.99",
+      "amount": 11266,
+      "formatted": "$11.266",
       "locale": "es_CL",
       "name": "Chile"
     },
@@ -46,26 +53,19 @@
       "locale": "es_EC",
       "name": "Ecuador"
     },
-    "BO": {
-      "currency": "BOB",
-      "amount": 9.99,
-      "formatted": "$9.99",
-      "locale": "es_BO",
-      "name": "Bolivia"
+    "CR": {
+      "currency": "CRC",
+      "amount": 4790,
+      "formatted": "₡4 790,00",
+      "locale": "es_CR",
+      "name": "Costa Rica"
     },
-    "DO": {
-      "currency": "DOP",
+    "SV": {
+      "currency": "USD",
       "amount": 9.99,
       "formatted": "$9.99",
-      "locale": "es_DO",
-      "name": "Rep. Dominicana"
-    },
-    "PA": {
-      "currency": "PAB",
-      "amount": 9.99,
-      "formatted": "$9.99",
-      "locale": "es_PA",
-      "name": "Panamá"
+      "locale": "es_SV",
+      "name": "El Salvador"
     },
     "PR": {
       "currency": "USD",
@@ -73,6 +73,13 @@
       "formatted": "$9.99",
       "locale": "es_PR",
       "name": "Puerto Rico"
+    },
+    "UY": {
+      "currency": "UYU",
+      "amount": 424,
+      "formatted": "$ 424,00",
+      "locale": "es_UY",
+      "name": "Uruguay"
     },
     "VE": {
       "currency": "USD",
@@ -83,27 +90,23 @@
     },
     "PT": {
       "currency": "EUR",
-      "amount": 9.99,
-      "formatted": "$9.99",
+      "amount": 10.6,
+      "formatted": "10,60 €",
       "locale": "pt_PT",
       "name": "Portugal"
     }
   },
   "errors": [
     {
-      "country": "BR",
+      "country": "PE",
       "reason": "Preço não encontrado com nenhuma estratégia"
     },
     {
-      "country": "MX",
+      "country": "BO",
       "reason": "Preço não encontrado com nenhuma estratégia"
     },
     {
-      "country": "CR",
-      "reason": "Preço não encontrado com nenhuma estratégia"
-    },
-    {
-      "country": "SV",
+      "country": "DO",
       "reason": "Preço não encontrado com nenhuma estratégia"
     },
     {
@@ -115,11 +118,11 @@
       "reason": "Preço não encontrado com nenhuma estratégia"
     },
     {
-      "country": "PY",
+      "country": "PA",
       "reason": "Preço não encontrado com nenhuma estratégia"
     },
     {
-      "country": "UY",
+      "country": "PY",
       "reason": "Preço não encontrado com nenhuma estratégia"
     }
   ]
