@@ -33,7 +33,7 @@ jobs:
 
       # 3. Instala dependências npm
       - name: Instalar dependências
-        run: npm ci
+        run: npm install
         working-directory: scraper
 
       # 4. Instala o Chromium do Playwright + dependências de sistema
