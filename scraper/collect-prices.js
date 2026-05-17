@@ -85,23 +85,20 @@ const PRICE_SELECTORS = PRICE_SEL_ENV
 const COUNTRY_BTN_SELECTORS = COUNTRY_BTN_ENV
   ? [COUNTRY_BTN_ENV]
   : [
-    // Seletores específicos observados na Hotmart
+    // Texto visível "Alterar país" / "Cambiar país" (Playwright suporta :has-text)
+    'button:has-text("Alterar país")',
+    'button:has-text("Cambiar país")',
+    'button:has-text("Change country")',
+    'a:has-text("Alterar país")',
+    'a:has-text("Cambiar país")',
+    // Classes específicas observadas na Hotmart
     '[class*="country-selector"]',
     '[class*="CountrySelector"]',
+    '[class*="change-country"]',
     '[class*="locale-selector"]',
-    '[class*="LocaleSelector"]',
-    '[class*="currency-selector"]',
     '[data-testid*="country"]',
-    '[data-testid*="locale"]',
     '[aria-label*="país"]',
     '[aria-label*="country"]',
-    '[aria-label*="Country"]',
-    // Botão com bandeira SVG ou img próximo ao preço
-    'button[class*="flag"]',
-    'button[class*="Flag"]',
-    // Link ou botão com texto de país
-    'button[class*="location"]',
-    'a[class*="country"]',
   ];
 
 // ─── Seletores candidatos para ITENS NA LISTA DE PAÍSES ──────────────────────
@@ -333,23 +330,27 @@ async function tryUIStrategy(page, country) {
     } catch { /* tenta próximo */ }
   }
 
-  // Fallback: procura qualquer botão que contenha texto de país/flag
+  // Fallback: busca por texto "país" / "cambiar" / "alterar" no conteúdo do botão
   if (!countryBtn) {
     const handle = await page.evaluateHandle(() => {
-      const buttons = Array.from(document.querySelectorAll('button, [role="button"], a'));
-      return buttons.find(btn => {
-        const text = (btn.textContent || '').trim();
-        return /^[A-Z]{2}$/.test(text) ||
-               /idioma|lingua|país|country|locale/i.test(btn.getAttribute('aria-label') || '') ||
-               (btn.querySelector('img[alt], svg') !== null && text.length < 10);
+      const candidates = Array.from(document.querySelectorAll('button, [role="button"], a'));
+      return candidates.find(btn => {
+        const text = (btn.textContent || '').toLowerCase().trim();
+        const label = (btn.getAttribute('aria-label') || '').toLowerCase();
+        return text.includes('país') ||
+               text.includes('alterar') ||
+               text.includes('cambiar') ||
+               text.includes('change country') ||
+               label.includes('país') ||
+               label.includes('country');
       });
     });
 
-    // evaluateHandle retorna JSHandle — .asElement() converte para ElementHandle
     const el = handle.asElement();
     if (el) {
       const visible = await el.isVisible().catch(() => false);
       countryBtn = visible ? el : null;
+      if (countryBtn) log('🔍', 'Botão "Alterar/Cambiar país" encontrado por texto.');
     }
   }
 
@@ -372,30 +373,32 @@ async function tryUIStrategy(page, country) {
     return null;
   }
 
-  // 2.4 — Procura o país na lista por múltiplos critérios
-  const targetName  = country.name;
-  const targetCode  = country.code;
-  const targetLocale = country.locale;
+  // 2.4 — Procura o país na lista por múltiplos critérios (aliases + código)
+  const targetCode    = country.code;
+  const targetAliases = country.aliases && country.aliases.length > 0
+    ? country.aliases
+    : [country.name];
+
+  function matchesCountry(text) {
+    const t = text.toLowerCase().trim();
+    return targetAliases.some(alias =>
+      t === alias.toLowerCase() || t.includes(alias.toLowerCase())
+    );
+  }
 
   let countryItem = null;
+  await sleep(1500);
 
   // Tenta seletores conhecidos de itens de lista
   for (const sel of COUNTRY_ITEM_SELECTORS) {
     try {
       const items = await page.$$(sel);
       for (const item of items) {
-        const text = (await item.innerText().catch(() => '')).trim();
+        const text    = (await item.innerText().catch(() => '')).trim();
         const visible = await item.isVisible().catch(() => false);
-        if (
-          visible &&
-          (
-            text.toLowerCase().includes(targetName.toLowerCase()) ||
-            text.toUpperCase().includes(targetCode) ||
-            text.toLowerCase().includes(targetLocale.toLowerCase().replace('_', '-'))
-          )
-        ) {
+        if (visible && matchesCountry(text)) {
           countryItem = item;
-          log('🔍', `País na lista: "${sel}" → "${text}"`);
+          log('🔍', `País na lista [${sel}]: "${text}"`);
           break;
         }
       }
@@ -403,19 +406,20 @@ async function tryUIStrategy(page, country) {
     } catch { /* tenta próximo */ }
   }
 
-  // Fallback: varredura de todos os elementos visíveis procurando o nome do país
+  // Fallback: varredura de todos os elementos visíveis usando aliases
   if (!countryItem) {
-    const handle = await page.evaluateHandle(({ name, code }) => {
-      const allElements = Array.from(document.querySelectorAll('li, [role="option"], [role="menuitem"], a, button, span, div'));
-      return allElements.find(el => {
+    const handle = await page.evaluateHandle((aliases) => {
+      const all = Array.from(document.querySelectorAll(
+        'li, [role="option"], [role="menuitem"], button, a, span, p'
+      ));
+      return all.find(el => {
         const text    = (el.textContent || '').trim();
         const visible = !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
-        return visible && text.length < 60 && (
-          text.toLowerCase().includes(name.toLowerCase()) ||
-          text.toUpperCase().includes(code)
-        );
+        if (!visible || text.length > 80) return false;
+        const tLower = text.toLowerCase();
+        return aliases.some(a => tLower === a.toLowerCase() || tLower.includes(a.toLowerCase()));
       });
-    }, { name: targetName, code: targetCode });
+    }, targetAliases);
 
     // evaluateHandle retorna JSHandle — .asElement() converte para ElementHandle
     const el = handle.asElement();
@@ -423,30 +427,32 @@ async function tryUIStrategy(page, country) {
       const visible = await el.isVisible().catch(() => false);
       if (visible) {
         countryItem = el;
-        log('🔍', `País encontrado por varredura: ${targetName}`);
+        log('🔍', `País encontrado por varredura: ${targetAliases[0]}`);
       }
     }
   }
 
   if (!countryItem) {
-    warn(`País "${targetName}" (${targetCode}) não encontrado na lista do seletor.`);
-    // Fecha o modal pressionando Escape e retorna null
+    warn(`País "${targetAliases[0]}" (${targetCode}) não encontrado na lista do seletor.`);
     await page.keyboard.press('Escape').catch(() => {});
     return null;
   }
 
   // 2.5 — Clica no país e aguarda o preço atualizar
   try {
-    await countryItem.click({ timeout: 5000 });
-    log('✓', `Clicou em "${targetName}". Aguardando atualização do preço…`);
+    // A Hotmart pode redirecionar para ?bid=XXXXX após trocar o país
+    // Usamos Promise.all para capturar navegação E click simultaneamente
+    await Promise.all([
+      page.waitForNavigation({ timeout: 10000, waitUntil: 'networkidle' }).catch(() => {}),
+      countryItem.click({ timeout: 5000 }),
+    ]);
+    log('✓', `Clicou em "${targetAliases[0]}". Aguardando preço atualizar…`);
   } catch (err) {
-    warn(`Não foi possível clicar em "${targetName}": ${err.message}`);
+    warn(`Não foi possível clicar em "${targetAliases[0]}": ${err.message}`);
     return null;
   }
 
-  // Aguarda o preço mudar (SPA atualiza sem reload)
-  await page.waitForLoadState('networkidle', { timeout: TIMEOUT_MS }).catch(() => {});
-  await sleep(2500);
+  await sleep(2500); // hydration do React
 
   // 2.6 — Extrai o novo preço
   const priceAfter = await extractPrice(page);
