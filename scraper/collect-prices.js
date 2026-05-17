@@ -335,20 +335,21 @@ async function tryUIStrategy(page, country) {
 
   // Fallback: procura qualquer botão que contenha texto de país/flag
   if (!countryBtn) {
-    countryBtn = await page.evaluateHandle(() => {
+    const handle = await page.evaluateHandle(() => {
       const buttons = Array.from(document.querySelectorAll('button, [role="button"], a'));
       return buttons.find(btn => {
         const text = (btn.textContent || '').trim();
-        // Procura botão com sigla de país (2 letras maiúsculas) ou texto de idioma
         return /^[A-Z]{2}$/.test(text) ||
-               /idioma|lingua|país|país|country|locale/i.test(btn.getAttribute('aria-label') || '') ||
-               btn.querySelector('img[alt], svg') !== null && text.length < 10;
+               /idioma|lingua|país|country|locale/i.test(btn.getAttribute('aria-label') || '') ||
+               (btn.querySelector('img[alt], svg') !== null && text.length < 10);
       });
     });
 
-    if (countryBtn) {
-      const visible = await countryBtn.isVisible().catch(() => false);
-      if (!visible) countryBtn = null;
+    // evaluateHandle retorna JSHandle — .asElement() converte para ElementHandle
+    const el = handle.asElement();
+    if (el) {
+      const visible = await el.isVisible().catch(() => false);
+      countryBtn = visible ? el : null;
     }
   }
 
@@ -404,7 +405,7 @@ async function tryUIStrategy(page, country) {
 
   // Fallback: varredura de todos os elementos visíveis procurando o nome do país
   if (!countryItem) {
-    countryItem = await page.evaluateHandle(({ name, code }) => {
+    const handle = await page.evaluateHandle(({ name, code }) => {
       const allElements = Array.from(document.querySelectorAll('li, [role="option"], [role="menuitem"], a, button, span, div'));
       return allElements.find(el => {
         const text    = (el.textContent || '').trim();
@@ -416,10 +417,14 @@ async function tryUIStrategy(page, country) {
       });
     }, { name: targetName, code: targetCode });
 
-    if (countryItem) {
-      const visible = await countryItem.isVisible().catch(() => false);
-      if (!visible) countryItem = null;
-      else log('🔍', `País encontrado por varredura: ${targetName}`);
+    // evaluateHandle retorna JSHandle — .asElement() converte para ElementHandle
+    const el = handle.asElement();
+    if (el) {
+      const visible = await el.isVisible().catch(() => false);
+      if (visible) {
+        countryItem = el;
+        log('🔍', `País encontrado por varredura: ${targetName}`);
+      }
     }
   }
 
