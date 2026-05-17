@@ -1,0 +1,65 @@
+name: Coletar Preços Hotmart
+
+on:
+  schedule:
+    - cron: '0 10 * * *'
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    name: Coletar e salvar preços
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependências
+        run: npm ci
+        working-directory: scraper
+
+      - name: Instalar Playwright Chromium
+        run: npx playwright install chromium --with-deps
+        working-directory: scraper
+
+      - name: Coletar preços
+        run: node collect-prices.js
+        working-directory: scraper
+        env:
+          CHECKOUT_URL: ${{ secrets.HOTMART_CHECKOUT_URL }}
+          PRICE_SELECTOR: ${{ secrets.PRICE_SELECTOR }}
+          COUNTRY_BTN_SELECTOR: ${{ secrets.COUNTRY_BTN_SELECTOR }}
+          STRATEGY: 'both'
+          TIMEOUT_MS: '25000'
+          DEBUG: 'false'
+
+      - name: Salvar screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-${{ github.run_id }}
+          path: screenshots/
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Commit hotmart-prices.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add hotmart-prices.json
+          if git diff --staged --quiet; then
+            echo "Sem alterações."
+          else
+            git commit -m "chore: atualiza preços Hotmart [$(date -u '+%d/%m/%Y %H:%M')] [skip ci]"
+            git push
+          fi
