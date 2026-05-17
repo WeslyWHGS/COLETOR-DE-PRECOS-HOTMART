@@ -1,11 +1,15 @@
 name: Coletar Preços Hotmart
 
+# ─── Agendamento ──────────────────────────────────────────────────────────────
+# Roda às 7:00 e 12:00 horário de Brasília (UTC-3 = 10:00 e 15:00 UTC)
+# Ajuste os horários conforme seu fuso se necessário.
 on:
   schedule:
-    - cron: '0 10 * * *'
-    - cron: '0 15 * * *'
-  workflow_dispatch:
+    - cron: '0 10 * * *'   # 07:00 Brasília
+    - cron: '0 15 * * *'   # 12:00 Brasília
+  workflow_dispatch:        # permite executar manualmente pelo painel do GitHub
 
+# Permite que o workflow faça push no repositório
 permissions:
   contents: write
 
@@ -16,36 +20,49 @@ jobs:
     timeout-minutes: 30
 
     steps:
+      # 1. Checkout do repositório
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 2. Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: scraper/package-lock.json
 
+      # 3. Instala dependências npm
       - name: Instalar dependências
-        run: npm install
+        run: npm ci
         working-directory: scraper
 
-
+      # 4. Instala o Chromium do Playwright + dependências de sistema
       - name: Instalar Playwright Chromium
         run: npx playwright install chromium --with-deps
         working-directory: scraper
 
+      # 5. Executa o scraper
+      #    CHECKOUT_URL é lido do Secret configurado no repositório GitHub
       - name: Coletar preços
         run: node collect-prices.js
         working-directory: scraper
         env:
           CHECKOUT_URL: ${{ secrets.HOTMART_CHECKOUT_URL }}
-          PRICE_SELECTOR: ${{ secrets.PRICE_SELECTOR }}
-          COUNTRY_BTN_SELECTOR: ${{ secrets.COUNTRY_BTN_SELECTOR }}
-          STRATEGY: 'ui'
+          # Seletores opcionais — defina como Secrets se a detecção automática falhar.
+          # Rode discover-selectors.js localmente para descobrir os valores corretos.
+          PRICE_SELECTOR:          ${{ secrets.PRICE_SELECTOR }}
+          COUNTRY_BTN_SELECTOR:    ${{ secrets.COUNTRY_BTN_SELECTOR }}
+          COUNTRY_ITEM_SELECTOR:   ${{ secrets.COUNTRY_ITEM_SELECTOR }}
+          # Estratégia: "url" (só parâmetro locale) | "ui" (só clique) | "both" (padrão)
+          STRATEGY:   'both'
           TIMEOUT_MS: '25000'
-          DEBUG: 'true'
+          DEBUG:      'false'
 
-      - name: Salvar screenshots
-        if: always()
+      # 6. Salva screenshots como artefato (disponíveis por 7 dias no GitHub)
+      #    Útil para depurar quando um país não foi coletado corretamente.
+      - name: Salvar screenshots como artefato
+        if: always()   # salva mesmo se o passo anterior falhar
         uses: actions/upload-artifact@v4
         with:
           name: screenshots-${{ github.run_id }}
@@ -53,13 +70,15 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
+      # 7. Commit e push do hotmart-prices.json atualizado
       - name: Commit hotmart-prices.json
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add hotmart-prices.json
+          # Só faz commit se o arquivo mudou
           if git diff --staged --quiet; then
-            echo "Sem alterações."
+            echo "Nenhuma alteração nos preços. Skip commit."
           else
             git commit -m "chore: atualiza preços Hotmart [$(date -u '+%d/%m/%Y %H:%M')] [skip ci]"
             git push
