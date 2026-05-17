@@ -40,9 +40,9 @@ jobs:
           CHECKOUT_URL: ${{ secrets.HOTMART_CHECKOUT_URL }}
           PRICE_SELECTOR: ${{ secrets.PRICE_SELECTOR }}
           COUNTRY_BTN_SELECTOR: ${{ secrets.COUNTRY_BTN_SELECTOR }}
-          STRATEGY: 'both'
+          STRATEGY: 'ui'
           TIMEOUT_MS: '25000'
-          DEBUG: 'false'
+          DEBUG: 'True'
 
       - name: Salvar screenshots
         if: always()
