@@ -123,7 +123,9 @@ const COUNTRY_ITEM_SELECTORS = COUNTRY_ITEM_ENV
 
 // ─── Padrão de moeda para identificar textos de preço ────────────────────────
 
-const CURRENCY_PATTERN = /[$€£₡R]|BRL|MXN|COP|ARS|PEN|CLP|BOB|CRC|DOP|GTQ|HNL|PYG|UYU|PAB|USD|EUR/;
+// Inclui símbolos locais: S/ (PEN), Bs (BOB), Q (GTQ), L (HNL), ₲/Gs (PYG),
+// RD$ (DOP), B/. (PAB), além dos ISO codes e símbolos comuns
+const CURRENCY_PATTERN = /S\/|Bs\.?|₲|Gs\.|RD\$|B\/\.?|[$€£₡]|BRL|MXN|COP|ARS|PEN|CLP|BOB|CRC|DOP|GTQ|HNL|PYG|UYU|PAB|USD|EUR/;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -143,6 +145,16 @@ function buildLocaleUrl(baseUrl, locale) {
 
 function sleep(ms) {
   return new Promise(r => setTimeout(r, ms));
+}
+
+async function dismissCookieBanner(page) {
+  try {
+    const btn = await page.$('button:has-text("Permitir todas"), button:has-text("Permitir todo")');
+    if (btn && await btn.isVisible().catch(() => false)) {
+      await btn.click({ timeout: 3000 });
+      await sleep(500);
+    }
+  } catch { /* banner não encontrado, tudo bem */ }
 }
 
 function randomDelay(min = 600, max = 1400) {
@@ -274,6 +286,7 @@ async function tryUrlStrategy(page, country) {
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: TIMEOUT_MS });
     await page.waitForLoadState('networkidle', { timeout: TIMEOUT_MS }).catch(() => {});
     await sleep(2000);
+    await dismissCookieBanner(page);
 
     const price = await extractPrice(page);
     if (!price) return null;
@@ -537,6 +550,7 @@ async function run() {
           await page.waitForLoadState('networkidle', { timeout: TIMEOUT_MS }).catch(() => {});
           await sleep(2500);
         }
+        await dismissCookieBanner(page);
         priceData = await tryUIStrategy(page, country);
       }
 
