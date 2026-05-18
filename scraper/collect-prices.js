@@ -125,7 +125,7 @@ const COUNTRY_ITEM_SELECTORS = COUNTRY_ITEM_ENV
 
 // Inclui símbolos locais: S/ (PEN), Bs (BOB), Q (GTQ), L (HNL), ₲/Gs (PYG),
 // RD$ (DOP), B/. (PAB), além dos ISO codes e símbolos comuns
-const CURRENCY_PATTERN = /S\/|Bs\.?|₲|Gs\.|RD\$|B\/\.?|[$€£₡]|BRL|MXN|COP|ARS|PEN|CLP|BOB|CRC|DOP|GTQ|HNL|PYG|UYU|PAB|USD|EUR/;
+const CURRENCY_PATTERN = /S\/|Bs\.?|₲|Gs\.|RD\$|B\/\.?|Q(?=[\s\d])|L(?=[\s\d])|[$€£₡]|BRL|MXN|COP|ARS|PEN|CLP|BOB|CRC|DOP|GTQ|HNL|PYG|UYU|PAB|USD|EUR/;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -228,7 +228,9 @@ async function extractPrice(page) {
 function parsePrice(raw) {
   if (!raw) return null;
   const text     = raw.trim();
-  const noSymbol = text.replace(/[^0-9,\.]/g, '');
+  // Remove símbolos de moeda, espaços e pontos/barras que fazem parte do símbolo (ex: B/. S/)
+  // Mantém apenas dígitos, vírgulas e pontos que sejam separadores numéricos
+  const noSymbol = text.replace(/[^0-9,\.]/g, '').replace(/^\.+/, '');
   if (!noSymbol) return null;
 
   const hasDot   = noSymbol.includes('.');
