@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-05-18T00:12:48.942Z",
+  "updatedAt": "2026-05-18T00:22:34.701Z",
   "checkoutUrl": "https://pay.hotmart.com/N105747626N",
   "strategy": "both",
-  "totalCountries": 17,
+  "totalCountries": 19,
   "prices": {
     "BR": {
       "currency": "BRL",
@@ -81,9 +81,23 @@
       "locale": "es_SV",
       "name": "El Salvador"
     },
+    "GT": {
+      "currency": "GTQ",
+      "amount": 82,
+      "formatted": "Q 82.00",
+      "locale": "es_GT",
+      "name": "Guatemala"
+    },
+    "HN": {
+      "currency": "HNL",
+      "amount": 282,
+      "formatted": "L 282.00",
+      "locale": "es_HN",
+      "name": "Honduras"
+    },
     "PA": {
       "currency": "PAB",
-      "amount": 0.12,
+      "amount": 12,
       "formatted": "B/. 12.00",
       "locale": "es_PA",
       "name": "Panamá"
@@ -127,14 +141,6 @@
   "errors": [
     {
       "country": "DO",
-      "reason": "Preço não encontrado com nenhuma estratégia"
-    },
-    {
-      "country": "GT",
-      "reason": "Preço não encontrado com nenhuma estratégia"
-    },
-    {
-      "country": "HN",
       "reason": "Preço não encontrado com nenhuma estratégia"
     }
   ]
