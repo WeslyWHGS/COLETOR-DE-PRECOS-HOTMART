@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-06-05T12:35:28.897Z",
+  "updatedAt": "2026-06-05T17:24:32.867Z",
   "checkoutUrl": "https://pay.hotmart.com/R105871853K",
   "strategy": "both",
   "totalCountries": 20,
   "prices": {
     "BR": {
       "currency": "BRL",
-      "amount": 66.84,
-      "formatted": "R$ 66,84",
+      "amount": 68.19,
+      "formatted": "R$ 68,19",
       "locale": "pt_BR",
       "name": "Brasil"
     },
