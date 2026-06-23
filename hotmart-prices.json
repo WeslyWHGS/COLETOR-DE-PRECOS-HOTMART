@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-23T12:33:27.041Z",
+  "updatedAt": "2026-06-23T17:23:52.267Z",
   "checkoutUrl": "https://pay.hotmart.com/R105871853K",
   "strategy": "both",
-  "totalCountries": 19,
+  "totalCountries": 20,
   "prices": {
     "BR": {
       "currency": "BRL",
@@ -45,6 +45,13 @@
       "formatted": "12,48 €",
       "locale": "es_ES",
       "name": "España"
+    },
+    "CL": {
+      "currency": "CLP",
+      "amount": 13661,
+      "formatted": "$13.661",
+      "locale": "es_CL",
+      "name": "Chile"
     },
     "EC": {
       "currency": "USD",
@@ -137,11 +144,5 @@
       "locale": "pt_PT",
       "name": "Portugal"
     }
-  },
-  "errors": [
-    {
-      "country": "CL",
-      "reason": "Preço não encontrado com nenhuma estratégia"
-    }
-  ]
+  }
 }
