@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-07-22T16:25:43.561Z",
+  "updatedAt": "2026-07-23T11:50:02.014Z",
   "checkoutUrl": "https://pay.hotmart.com/R105871853K",
   "strategy": "both",
   "totalCountries": 20,
   "prices": {
     "BR": {
       "currency": "BRL",
-      "amount": 66.97,
-      "formatted": "R$ 66,97",
+      "amount": 66.87,
+      "formatted": "R$ 66,87",
       "locale": "pt_BR",
       "name": "Brasil"
     },
@@ -20,15 +20,15 @@
     },
     "CO": {
       "currency": "COP",
-      "amount": 40894,
-      "formatted": "$ 40.894",
+      "amount": 40724,
+      "formatted": "$ 40.724",
       "locale": "es_CO",
       "name": "Colombia"
     },
     "AR": {
       "currency": "ARS",
-      "amount": 20612,
-      "formatted": "$ 20.612,00",
+      "amount": 20675,
+      "formatted": "$ 20.675,00",
       "locale": "es_AR",
       "name": "Argentina"
     },
@@ -48,8 +48,8 @@
     },
     "CL": {
       "currency": "CLP",
-      "amount": 14082,
-      "formatted": "$14.082",
+      "amount": 14100,
+      "formatted": "$14.100",
       "locale": "es_CL",
       "name": "Chile"
     },
