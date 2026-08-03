@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-02T16:06:29.853Z",
+  "updatedAt": "2026-08-03T12:53:28.938Z",
   "checkoutUrl": "https://pay.hotmart.com/R105871853K",
   "strategy": "both",
   "totalCountries": 20,
@@ -62,8 +62,8 @@
     },
     "BO": {
       "currency": "BOB",
-      "amount": 150,
-      "formatted": "Bs 150,00",
+      "amount": 155,
+      "formatted": "Bs 155,00",
       "locale": "es_BO",
       "name": "Bolivia"
     },
