@@ -1,27 +1,27 @@
 {
-  "updatedAt": "2026-08-04T11:59:02.999Z",
+  "updatedAt": "2026-08-04T16:56:46.519Z",
   "checkoutUrl": "https://pay.hotmart.com/R105871853K",
   "strategy": "both",
   "totalCountries": 20,
   "prices": {
     "BR": {
       "currency": "BRL",
-      "amount": 67.32,
-      "formatted": "R$ 67,32",
+      "amount": 67.08,
+      "formatted": "R$ 67,08",
       "locale": "pt_BR",
       "name": "Brasil"
     },
     "MX": {
       "currency": "MXN",
-      "amount": 255.2,
-      "formatted": "$255.20",
+      "amount": 254.04,
+      "formatted": "$254.04",
       "locale": "es_MX",
       "name": "México"
     },
     "CO": {
       "currency": "COP",
-      "amount": 41060,
-      "formatted": "$ 41.060",
+      "amount": 41072,
+      "formatted": "$ 41.072",
       "locale": "es_CO",
       "name": "Colombia"
     },
@@ -48,8 +48,8 @@
     },
     "CL": {
       "currency": "CLP",
-      "amount": 13940,
-      "formatted": "$13.940",
+      "amount": 13902,
+      "formatted": "$13.902",
       "locale": "es_CL",
       "name": "Chile"
     },
@@ -62,15 +62,15 @@
     },
     "BO": {
       "currency": "BOB",
-      "amount": 155,
-      "formatted": "Bs 155,00",
+      "amount": 154,
+      "formatted": "Bs 154,00",
       "locale": "es_BO",
       "name": "Bolivia"
     },
     "CR": {
       "currency": "CRC",
-      "amount": 5750,
-      "formatted": "₡5 750,00",
+      "amount": 5739,
+      "formatted": "₡5 739,00",
       "locale": "es_CR",
       "name": "Costa Rica"
     },
@@ -97,8 +97,8 @@
     },
     "HN": {
       "currency": "HNL",
-      "amount": 342,
-      "formatted": "L 342.00",
+      "amount": 340,
+      "formatted": "L 340.00",
       "locale": "es_HN",
       "name": "Honduras"
     },
@@ -111,8 +111,8 @@
     },
     "PY": {
       "currency": "PYG",
-      "amount": 75504,
-      "formatted": "Gs. 75.504",
+      "amount": 75459,
+      "formatted": "Gs. 75.459",
       "locale": "es_PY",
       "name": "Paraguay"
     },
