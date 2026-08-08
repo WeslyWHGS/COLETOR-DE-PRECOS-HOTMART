@@ -1,34 +1,34 @@
 {
-  "updatedAt": "2026-08-07T16:01:45.435Z",
+  "updatedAt": "2026-08-08T10:26:53.791Z",
   "checkoutUrl": "https://pay.hotmart.com/R105871853K",
   "strategy": "both",
   "totalCountries": 20,
   "prices": {
     "BR": {
       "currency": "BRL",
-      "amount": 67.63,
-      "formatted": "R$ 67,63",
+      "amount": 67.3,
+      "formatted": "R$ 67,30",
       "locale": "pt_BR",
       "name": "Brasil"
     },
     "MX": {
       "currency": "MXN",
-      "amount": 254.04,
-      "formatted": "$254.04",
+      "amount": 251.72,
+      "formatted": "$251.72",
       "locale": "es_MX",
       "name": "México"
     },
     "CO": {
       "currency": "COP",
-      "amount": 40002,
-      "formatted": "$ 40.002",
+      "amount": 39970,
+      "formatted": "$ 39.970",
       "locale": "es_CO",
       "name": "Colombia"
     },
     "AR": {
       "currency": "ARS",
-      "amount": 20712,
-      "formatted": "$ 20.712,00",
+      "amount": 20745,
+      "formatted": "$ 20.745,00",
       "locale": "es_AR",
       "name": "Argentina"
     },
@@ -48,8 +48,8 @@
     },
     "CL": {
       "currency": "CLP",
-      "amount": 13800,
-      "formatted": "$13.800",
+      "amount": 13765,
+      "formatted": "$13.765",
       "locale": "es_CL",
       "name": "Chile"
     },
@@ -62,15 +62,15 @@
     },
     "BO": {
       "currency": "BOB",
-      "amount": 154,
-      "formatted": "Bs 154,00",
+      "amount": 152,
+      "formatted": "Bs 152,00",
       "locale": "es_BO",
       "name": "Bolivia"
     },
     "CR": {
       "currency": "CRC",
-      "amount": 5759,
-      "formatted": "₡5 759,00",
+      "amount": 5755,
+      "formatted": "₡5 755,00",
       "locale": "es_CR",
       "name": "Costa Rica"
     },
@@ -97,8 +97,8 @@
     },
     "HN": {
       "currency": "HNL",
-      "amount": 340,
-      "formatted": "L 340.00",
+      "amount": 342,
+      "formatted": "L 342.00",
       "locale": "es_HN",
       "name": "Honduras"
     },
@@ -111,8 +111,8 @@
     },
     "PY": {
       "currency": "PYG",
-      "amount": 75289,
-      "formatted": "Gs. 75.289",
+      "amount": 75272,
+      "formatted": "Gs. 75.272",
       "locale": "es_PY",
       "name": "Paraguay"
     },
