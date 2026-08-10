@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-09T15:37:02.285Z",
+  "updatedAt": "2026-08-10T11:00:40.977Z",
   "checkoutUrl": "https://pay.hotmart.com/R105871853K",
   "strategy": "both",
   "totalCountries": 20,
@@ -48,8 +48,8 @@
     },
     "CL": {
       "currency": "CLP",
-      "amount": 13765,
-      "formatted": "$13.765",
+      "amount": 13761,
+      "formatted": "$13.761",
       "locale": "es_CL",
       "name": "Chile"
     },
