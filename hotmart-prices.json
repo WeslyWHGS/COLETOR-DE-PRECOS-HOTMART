@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-02T14:01:05.083Z",
+  "updatedAt": "2026-09-02T18:38:37.180Z",
   "checkoutUrl": "https://pay.hotmart.com/R105871853K",
   "strategy": "both",
   "totalCountries": 20,
@@ -55,8 +55,8 @@
     },
     "EC": {
       "currency": "USD",
-      "amount": 251.72,
-      "formatted": "$251.72",
+      "amount": 12,
+      "formatted": "$12.00",
       "locale": "es_EC",
       "name": "Ecuador"
     },
@@ -76,15 +76,15 @@
     },
     "DO": {
       "currency": "USD",
-      "amount": 251.72,
-      "formatted": "$251.72",
+      "amount": 12,
+      "formatted": "$12.00",
       "locale": "es_DO",
       "name": "Rep. Dominicana"
     },
     "SV": {
       "currency": "USD",
-      "amount": 251.72,
-      "formatted": "$251.72",
+      "amount": 12,
+      "formatted": "$12.00",
       "locale": "es_SV",
       "name": "El Salvador"
     },
@@ -118,8 +118,8 @@
     },
     "PR": {
       "currency": "USD",
-      "amount": 251.72,
-      "formatted": "$251.72",
+      "amount": 12,
+      "formatted": "$12.00",
       "locale": "es_PR",
       "name": "Puerto Rico"
     },
@@ -132,8 +132,8 @@
     },
     "VE": {
       "currency": "USD",
-      "amount": 251.72,
-      "formatted": "$251.72",
+      "amount": 12,
+      "formatted": "$12.00",
       "locale": "es_VE",
       "name": "Venezuela"
     },
