@@ -1,20 +1,20 @@
 {
-  "updatedAt": "2026-10-13T20:37:00.990Z",
+  "updatedAt": "2026-10-14T14:50:30.664Z",
   "checkoutUrl": "https://pay.hotmart.com/R105871853K",
   "strategy": "both",
   "totalCountries": 20,
   "prices": {
     "BR": {
       "currency": "BRL",
-      "amount": 65.82,
-      "formatted": "R$ 65,82",
+      "amount": 66.33,
+      "formatted": "R$ 66,33",
       "locale": "pt_BR",
       "name": "Brasil"
     },
     "MX": {
       "currency": "MXN",
-      "amount": 269.12,
-      "formatted": "$269.12",
+      "amount": 271.44,
+      "formatted": "$271.44",
       "locale": "es_MX",
       "name": "México"
     },
@@ -27,8 +27,8 @@
     },
     "AR": {
       "currency": "ARS",
-      "amount": 21192,
-      "formatted": "$ 21.192,00",
+      "amount": 21194,
+      "formatted": "$ 21.194,00",
       "locale": "es_AR",
       "name": "Argentina"
     },
