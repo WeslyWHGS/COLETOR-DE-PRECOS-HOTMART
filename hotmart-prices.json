@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-10-23T19:00:15.577Z",
+  "updatedAt": "2026-10-24T13:47:12.787Z",
   "checkoutUrl": "https://pay.hotmart.com/R105871853K",
   "strategy": "both",
   "totalCountries": 20,
   "prices": {
     "BR": {
       "currency": "BRL",
-      "amount": 66.53,
-      "formatted": "R$ 66,53",
+      "amount": 65.84,
+      "formatted": "R$ 65,84",
       "locale": "pt_BR",
       "name": "Brasil"
     },
@@ -20,15 +20,15 @@
     },
     "CO": {
       "currency": "COP",
-      "amount": 40340,
-      "formatted": "$ 40.340",
+      "amount": 39952,
+      "formatted": "$ 39.952",
       "locale": "es_CO",
       "name": "Colombia"
     },
     "AR": {
       "currency": "ARS",
-      "amount": 21544,
-      "formatted": "$ 21.544,00",
+      "amount": 21722,
+      "formatted": "$ 21.722,00",
       "locale": "es_AR",
       "name": "Argentina"
     },
@@ -48,8 +48,8 @@
     },
     "CL": {
       "currency": "CLP",
-      "amount": 14850,
-      "formatted": "$14.850",
+      "amount": 14996,
+      "formatted": "$14.996",
       "locale": "es_CL",
       "name": "Chile"
     },
@@ -62,15 +62,15 @@
     },
     "BO": {
       "currency": "BOB",
-      "amount": 149,
-      "formatted": "Bs 149,00",
+      "amount": 150,
+      "formatted": "Bs 150,00",
       "locale": "es_BO",
       "name": "Bolivia"
     },
     "CR": {
       "currency": "CRC",
-      "amount": 5784,
-      "formatted": "₡5 784,00",
+      "amount": 5779,
+      "formatted": "₡5 779,00",
       "locale": "es_CR",
       "name": "Costa Rica"
     },
@@ -97,8 +97,8 @@
     },
     "HN": {
       "currency": "HNL",
-      "amount": 342,
-      "formatted": "L 342.00",
+      "amount": 340,
+      "formatted": "L 340.00",
       "locale": "es_HN",
       "name": "Honduras"
     },
@@ -111,8 +111,8 @@
     },
     "PY": {
       "currency": "PYG",
-      "amount": 72654,
-      "formatted": "Gs. 72.654",
+      "amount": 73227,
+      "formatted": "Gs. 73.227",
       "locale": "es_PY",
       "name": "Paraguay"
     },
